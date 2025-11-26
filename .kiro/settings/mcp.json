@@ -1,0 +1,133 @@
+{
+  "mcpServers": {
+    "excel": {
+      "command": "uvx",
+      "args": [
+        "excel-mcp-server",
+        "stdio"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "aws-atlas-mcp-server": {
+      "command": "/Users/halilb/aws-atlas/.venv/bin/aws-atlas-cli",
+      "args": [
+        "mcp",
+        "start"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "list_atlas_mcp_tools",
+        "phonetool-org_chart",
+        "phonetool-get_detailed_employees_list",
+        "salesforce-user_search_users",
+        "salesforce-task_search_activities_by_date_range",
+        "salesforce-task_get_task_details"
+      ]
+    },
+    "mcpfinder": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcpfinder.dev/mcp",
+        "--transport",
+        "sse"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": [],
+      "disabledTools": [
+        "fetch"
+      ]
+    },
+    "aws-docs": {
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "azure": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-azure"
+      ],
+      "env": {
+        "AZURE_SUBSCRIPTION_ID": "your-subscription-id"
+      },
+      "disabled": true,
+      "autoApprove": []
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "disabled": true,
+      "autoApprove": []
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/allowed/directory"
+      ],
+      "disabled": true,
+      "autoApprove": []
+    },
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-token-here"
+      },
+      "disabled": true,
+      "autoApprove": []
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "web-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@brave/brave-search-mcp-server",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "your-api-key"
+      },
+      "disabled": true,
+      "autoApprove": []
+    }
+  }
+}
