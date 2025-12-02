@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopping-assistant-chatbot
+    ports:
+      - "8000:8000"
+    environment:
+      # AWS Credentials (set these in .env file or pass via environment)
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN:-}
+      - AWS_REGION=${AWS_REGION:-us-west-2}
+      
+      # Bedrock Configuration
+      - BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID:-us.amazon.nova-pro-v1:0}
+      - BEDROCK_TEMPERATURE=${BEDROCK_TEMPERATURE:-0.7}
+      - BEDROCK_MAX_TOKENS=${BEDROCK_MAX_TOKENS:-2048}
+      
+      # Server Configuration
+      - SERVER_HOST=${SERVER_HOST:-0.0.0.0}
+      - SERVER_PORT=${SERVER_PORT:-8000}
+      
+      # Backend API Configuration
+      - BACKEND_API_URL=${BACKEND_API_URL}
+      - BACKEND_API_KEY=${BACKEND_API_KEY:-}
+      
+      # Logging
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health').read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - chatbot-network
+
+networks:
+  chatbot-network:
+    driver: bridge
